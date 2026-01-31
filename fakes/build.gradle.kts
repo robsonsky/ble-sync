@@ -1,15 +1,11 @@
 plugins {
-    kotlin("jvm") version "1.9.24"
-}
-
-repositories {
-    google()
-    mavenCentral()
+    kotlin("jvm")
 }
 
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(project(":ports"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
     testImplementation(kotlin("test"))
 }

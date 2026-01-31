@@ -1,12 +1,6 @@
 plugins {
-    kotlin("jvm") version "1.9.24"
+    kotlin("jvm")
 }
-
-repositories {
-    google()
-    mavenCentral()
-}
-
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(project(":core-domain"))
