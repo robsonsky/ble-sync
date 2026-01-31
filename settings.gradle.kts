@@ -7,3 +7,28 @@
  */
 
 rootProject.name = "ble-sync"
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "ble-sync"
+
+include(
+    ":core-domain",
+    ":runtime-actor",
+    ":ports",
+    ":adapters-android",
+    ":fakes",
+    ":app-demo"
+)
