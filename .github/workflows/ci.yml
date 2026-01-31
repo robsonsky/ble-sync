@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Gradle wrapper validation
+        uses: gradle/actions/wrapper-validation@v3
+
+      - name: Build cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Spotless check
+        run: ./gradlew --no-daemon spotlessCheck
+
+      - name: Detekt
+        run: ./gradlew --no-daemon detekt
+
+      - name: Lint (Android)
+        run: ./gradlew --no-daemon :adapters-android:lint :app-demo:lint
+
+      - name: Unit tests (JVM)
+        run: ./gradlew --no-daemon :ports:test :runtime-actor:test :fakes:test
+
+      - name: Assemble app
+        run: ./gradlew --no-daemon :app-demo:assembleDebug
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: |
+            **/build/reports/**
