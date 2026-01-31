@@ -1,0 +1,12 @@
+# Gradle build output (we never want these in Git)
+.gradle/
+build/
+
+# Android/IDE generated files
+local.properties         # contains local SDK paths - should not be shared
+*.iml                    # IntelliJ/Android Studio module files
+.idea/                   # IDE configuration - often machine-specific
+
+# OS junk
+.DS_Store                # macOS Finder metadata
+Thumbs.db                # Windows Explorer metadata
