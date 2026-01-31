@@ -18,3 +18,6 @@ build
 
 # Ignore Kotlin plugin data
 .kotlin
+
+local.properties
+/.idea
