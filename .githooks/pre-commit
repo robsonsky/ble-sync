@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "Running Spotless..."
+./gradlew -q spotlessApply
+echo "Running Detekt..."
+./gradlew -q detekt
+echo "Running unit tests (JVM modules)..."
+./gradlew -q :ports:test :runtime-actor:test :fakes:test
+echo "OK"

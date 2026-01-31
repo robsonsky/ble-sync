@@ -1,0 +1,29 @@
+processors:
+  active: true
+
+config:
+  validation: true
+
+build:
+  maxIssues: 0
+  excludeCorrectable: false
+
+style:
+  MagicNumber:
+    active: false
+  MaxLineLength:
+    active: true
+    maxLineLength: 140
+  WildcardImport:
+    active: true
+
+complexity:
+  LongParameterList:
+    active: true
+    threshold: 6
+  TooManyFunctions:
+    active: false
+
+performance:
+  ForEachOnRange:
+    active: true
