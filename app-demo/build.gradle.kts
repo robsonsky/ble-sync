@@ -26,6 +26,19 @@ android {
         }
     }
 
+    flavorDimensions += "env"
+
+    productFlavors {
+        create("demo") {
+            dimension = "env"
+            buildConfigField("boolean", "DEMO", "true")
+        }
+        create("prod") {
+            dimension = "env"
+            buildConfigField("boolean", "DEMO", "false")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -37,6 +50,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
@@ -65,6 +79,10 @@ dependencies {
     // Core
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // Koin
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
 
     // Compose BOM
     implementation(platform("androidx.compose:compose-bom:2024.02.01"))
