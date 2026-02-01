@@ -605,3 +605,79 @@ public final class com/hailie/domain/model/SyncAggregateKt {
 	public static synthetic fun initialSyncAggregate-T4xMTfM$default (Ljava/lang/String;IILjava/lang/Object;)Lcom/hailie/domain/model/SyncAggregate;
 }
 
+public final class com/hailie/domain/policy/AdaptivePageSizingPolicy : com/hailie/domain/policy/PageSizingPolicy {
+	public fun <init> ()V
+	public fun <init> (IIII)V
+	public synthetic fun <init> (IIIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun next-8qRozwk (ILcom/hailie/domain/policy/PageOutcome;)I
+}
+
+public abstract interface class com/hailie/domain/policy/BreakerPolicy {
+	public abstract fun isCallAllowed-1_AN8L0 (JLcom/hailie/domain/BreakerState;)Z
+	public abstract fun onFailure-EbYnHCo (JLcom/hailie/domain/BreakerState;Lcom/hailie/domain/DomainError;)Lcom/hailie/domain/BreakerState;
+	public abstract fun onSuccess-1_AN8L0 (JLcom/hailie/domain/BreakerState;)Lcom/hailie/domain/BreakerState;
+}
+
+public final class com/hailie/domain/policy/BreakerPolicyKt {
+	public static final fun moveToHalfOpenIfCooled-EbYnHCo (JLcom/hailie/domain/BreakerState;J)Lcom/hailie/domain/BreakerState;
+}
+
+public final class com/hailie/domain/policy/ExponentialRetryPolicy : com/hailie/domain/policy/RetryPolicy {
+	public fun <init> ()V
+	public fun <init> (IJJDLkotlin/jvm/functions/Function2;)V
+	public synthetic fun <init> (IJJDLkotlin/jvm/functions/Function2;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun decide-EbYnHCo (JILcom/hailie/domain/RetryReason;)Lcom/hailie/domain/policy/RetryDecision;
+}
+
+public final class com/hailie/domain/policy/PageOutcome : java/lang/Enum {
+	public static final field HardFailure Lcom/hailie/domain/policy/PageOutcome;
+	public static final field MostlyStable Lcom/hailie/domain/policy/PageOutcome;
+	public static final field Stable Lcom/hailie/domain/policy/PageOutcome;
+	public static final field TransientFailure Lcom/hailie/domain/policy/PageOutcome;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/hailie/domain/policy/PageOutcome;
+	public static fun values ()[Lcom/hailie/domain/policy/PageOutcome;
+}
+
+public abstract interface class com/hailie/domain/policy/PageSizingPolicy {
+	public abstract fun next-8qRozwk (ILcom/hailie/domain/policy/PageOutcome;)I
+}
+
+public abstract interface class com/hailie/domain/policy/RetryDecision {
+}
+
+public final class com/hailie/domain/policy/RetryDecision$GiveUp : com/hailie/domain/policy/RetryDecision {
+	public static final field INSTANCE Lcom/hailie/domain/policy/RetryDecision$GiveUp;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/policy/RetryDecision$Schedule : com/hailie/domain/policy/RetryDecision {
+	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-l8VicOg ()J
+	public final fun copy-DbYSwxY (J)Lcom/hailie/domain/policy/RetryDecision$Schedule;
+	public static synthetic fun copy-DbYSwxY$default (Lcom/hailie/domain/policy/RetryDecision$Schedule;JILjava/lang/Object;)Lcom/hailie/domain/policy/RetryDecision$Schedule;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAt-l8VicOg ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/hailie/domain/policy/RetryPolicy {
+	public abstract fun decide-EbYnHCo (JILcom/hailie/domain/RetryReason;)Lcom/hailie/domain/policy/RetryDecision;
+}
+
+public final class com/hailie/domain/policy/RetryPolicyKt {
+	public static final fun attemptsFor-D3ckeaU (Lcom/hailie/domain/AttemptCounters;Ljava/lang/String;)I
+}
+
+public final class com/hailie/domain/policy/SimpleBreakerPolicy : com/hailie/domain/policy/BreakerPolicy {
+	public fun <init> ()V
+	public fun <init> (IJ)V
+	public synthetic fun <init> (IJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun isCallAllowed-1_AN8L0 (JLcom/hailie/domain/BreakerState;)Z
+	public fun onFailure-EbYnHCo (JLcom/hailie/domain/BreakerState;Lcom/hailie/domain/DomainError;)Lcom/hailie/domain/BreakerState;
+	public fun onSuccess-1_AN8L0 (JLcom/hailie/domain/BreakerState;)Lcom/hailie/domain/BreakerState;
+}
+
