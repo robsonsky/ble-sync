@@ -26,7 +26,7 @@ rootProject.name = "ble-sync"
 
 include(
     ":core-domain",
-    ":runtime-actor",
+    ":core-runtime",
     ":ports",
     ":adapters-android",
     ":fakes",

@@ -72,7 +72,8 @@ android {
 
 dependencies {
     // SDK modules
-    implementation(project(":runtime-actor"))
+    implementation(project(":core-domain"))
+    implementation(project(":core-runtime"))
     implementation(project(":ports"))
     implementation(project(":fakes"))
 

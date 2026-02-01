@@ -1,0 +1,108 @@
+public abstract interface class com/hailie/runtime/actor/Message {
+}
+
+public final class com/hailie/runtime/actor/Message$DomainEvent : com/hailie/runtime/actor/Message {
+	public fun <init> (Lcom/hailie/domain/events/Event;)V
+	public final fun component1 ()Lcom/hailie/domain/events/Event;
+	public final fun copy (Lcom/hailie/domain/events/Event;)Lcom/hailie/runtime/actor/Message$DomainEvent;
+	public static synthetic fun copy$default (Lcom/hailie/runtime/actor/Message$DomainEvent;Lcom/hailie/domain/events/Event;ILjava/lang/Object;)Lcom/hailie/runtime/actor/Message$DomainEvent;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEvent ()Lcom/hailie/domain/events/Event;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/runtime/actor/Message$Start : com/hailie/runtime/actor/Message {
+	public static final field INSTANCE Lcom/hailie/runtime/actor/Message$Start;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/runtime/actor/Message$Stop : com/hailie/runtime/actor/Message {
+	public static final field INSTANCE Lcom/hailie/runtime/actor/Message$Stop;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/runtime/actor/Message$TimerFired : com/hailie/runtime/actor/Message {
+	public static final field INSTANCE Lcom/hailie/runtime/actor/Message$TimerFired;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/runtime/actor/SyncActor {
+	public fun <init> (Lcom/hailie/domain/model/SyncAggregate;Lcom/hailie/domain/saga/Saga;Lcom/hailie/runtime/ports/ClockPort;Lcom/hailie/runtime/ports/BlePort;Lcom/hailie/runtime/ports/DeliveryPort;Lcom/hailie/runtime/ports/StateStorePort;Lcom/hailie/runtime/ports/TelemetryPort;)V
+	public final fun offer (Lcom/hailie/runtime/actor/Message;)V
+	public final fun start ()V
+	public final fun stop ()V
+}
+
+public abstract interface class com/hailie/runtime/ports/BlePort {
+	public abstract fun ack-y0BiGhE (Ljava/lang/String;J)Lcom/hailie/domain/events/Event;
+	public abstract fun bond-6Qdsz-o (Ljava/lang/String;)Lcom/hailie/domain/events/Event;
+	public abstract fun connect-6Qdsz-o (Ljava/lang/String;)Lcom/hailie/domain/events/Event;
+	public abstract fun disconnect-6Qdsz-o (Ljava/lang/String;)Lcom/hailie/domain/events/Event;
+	public abstract fun readCount-6Qdsz-o (Ljava/lang/String;)Lcom/hailie/domain/events/Event;
+	public abstract fun readPage-vSBjs1w (Ljava/lang/String;JI)Lcom/hailie/domain/events/Event;
+}
+
+public abstract interface class com/hailie/runtime/ports/ClockPort {
+	public abstract fun cancel (Lcom/hailie/runtime/ports/TimerToken;)V
+	public abstract fun now-l8VicOg ()J
+	public abstract fun schedule-1_AN8L0 (JLkotlin/jvm/functions/Function0;)Lcom/hailie/runtime/ports/TimerToken;
+}
+
+public abstract interface class com/hailie/runtime/ports/DeliveryPort {
+	public abstract fun deliver-T4xMTfM (Ljava/lang/String;Lcom/hailie/domain/EventRange;)Lcom/hailie/domain/events/Event;
+}
+
+public abstract interface class com/hailie/runtime/ports/StateStorePort {
+	public abstract fun read-6Qdsz-o (Ljava/lang/String;)Lcom/hailie/runtime/ports/SyncSnapshot;
+	public abstract fun write (Lcom/hailie/runtime/ports/SyncSnapshot;)V
+}
+
+public final class com/hailie/runtime/ports/SyncSnapshot {
+	public synthetic fun <init> (Ljava/lang/String;JILjava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-lXtqNcE ()J
+	public final fun component3-OV6LaTU ()I
+	public final fun component4-fZOzdw0 ()Ljava/lang/String;
+	public final fun copy-DYWvGkc (Ljava/lang/String;JILjava/lang/String;)Lcom/hailie/runtime/ports/SyncSnapshot;
+	public static synthetic fun copy-DYWvGkc$default (Lcom/hailie/runtime/ports/SyncSnapshot;Ljava/lang/String;JILjava/lang/String;ILjava/lang/Object;)Lcom/hailie/runtime/ports/SyncSnapshot;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getLastAckedExclusive-lXtqNcE ()J
+	public final fun getPageSize-OV6LaTU ()I
+	public final fun getSagaCursor-fZOzdw0 ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/runtime/ports/TelemetryEvent {
+	public synthetic fun <init> (Ljava/lang/String;JLjava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;JLjava/lang/String;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/util/Map;
+	public final fun copy-phg6an8 (Ljava/lang/String;JLjava/lang/String;Ljava/util/Map;)Lcom/hailie/runtime/ports/TelemetryEvent;
+	public static synthetic fun copy-phg6an8$default (Lcom/hailie/runtime/ports/TelemetryEvent;Ljava/lang/String;JLjava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/hailie/runtime/ports/TelemetryEvent;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAt-l8VicOg ()J
+	public final fun getData ()Ljava/util/Map;
+	public final fun getDeviceId ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/hailie/runtime/ports/TelemetryPort {
+	public abstract fun emit (Lcom/hailie/runtime/ports/TelemetryEvent;)V
+}
+
+public abstract interface class com/hailie/runtime/ports/TimerToken {
+}
+

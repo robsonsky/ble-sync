@@ -42,7 +42,7 @@ jobs:
         run: ./gradlew --no-daemon :adapters-android:lint :app-demo:lint
 
       - name: Unit tests (JVM)
-        run: ./gradlew --no-daemon :ports:test :runtime-actor:test :fakes:test
+        run: ./gradlew --no-daemon :ports:test :core-domain:check :core-runtime:check :fakes:test
 
       - name: Assemble app
         run: ./gradlew --no-daemon :app-demo:assembleDebug

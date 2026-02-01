@@ -96,6 +96,6 @@ tasks.register("depsUpdate") {
     dependsOn("dependencyUpdates")
 }
 
-configure(listOf(project(":core-domain"), project(":ports"), project(":runtime-actor"), project(":adapters-android"))) {
+configure(listOf(project(":core-domain"), project(":ports"), project(":core-runtime"), project(":adapters-android"))) {
     pluginManager.apply("org.jetbrains.kotlinx.binary-compatibility-validator")
 }
