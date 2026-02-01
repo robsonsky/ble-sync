@@ -1,0 +1,607 @@
+public final class com/hailie/domain/AttemptCounters {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/Map;
+	public final fun copy (Ljava/util/Map;)Lcom/hailie/domain/AttemptCounters;
+	public static synthetic fun copy$default (Lcom/hailie/domain/AttemptCounters;Ljava/util/Map;ILjava/lang/Object;)Lcom/hailie/domain/AttemptCounters;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun get-J7kX7Dw (Ljava/lang/String;)I
+	public final fun getByKey ()Ljava/util/Map;
+	public fun hashCode ()I
+	public final fun inc-J7kX7Dw (Ljava/lang/String;)Lcom/hailie/domain/AttemptCounters;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/AttemptKey {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lcom/hailie/domain/AttemptKey;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getRaw ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/BondStatus : java/lang/Enum {
+	public static final field Bonded Lcom/hailie/domain/BondStatus;
+	public static final field Bonding Lcom/hailie/domain/BondStatus;
+	public static final field NotBonded Lcom/hailie/domain/BondStatus;
+	public static final field Unknown Lcom/hailie/domain/BondStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/hailie/domain/BondStatus;
+	public static fun values ()[Lcom/hailie/domain/BondStatus;
+}
+
+public final class com/hailie/domain/BreakerPhase : java/lang/Enum {
+	public static final field Closed Lcom/hailie/domain/BreakerPhase;
+	public static final field HalfOpen Lcom/hailie/domain/BreakerPhase;
+	public static final field Open Lcom/hailie/domain/BreakerPhase;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/hailie/domain/BreakerPhase;
+	public static fun values ()[Lcom/hailie/domain/BreakerPhase;
+}
+
+public final class com/hailie/domain/BreakerState {
+	public synthetic fun <init> (Lcom/hailie/domain/BreakerPhase;Lcom/hailie/domain/TimestampMs;Lcom/hailie/domain/DomainError;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lcom/hailie/domain/BreakerPhase;Lcom/hailie/domain/TimestampMs;Lcom/hailie/domain/DomainError;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/hailie/domain/BreakerPhase;
+	public final fun component2-IsaDASo ()Lcom/hailie/domain/TimestampMs;
+	public final fun component3 ()Lcom/hailie/domain/DomainError;
+	public final fun copy-uw9p4OA (Lcom/hailie/domain/BreakerPhase;Lcom/hailie/domain/TimestampMs;Lcom/hailie/domain/DomainError;)Lcom/hailie/domain/BreakerState;
+	public static synthetic fun copy-uw9p4OA$default (Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerPhase;Lcom/hailie/domain/TimestampMs;Lcom/hailie/domain/DomainError;ILjava/lang/Object;)Lcom/hailie/domain/BreakerState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLastFailure ()Lcom/hailie/domain/DomainError;
+	public final fun getOpenedAt-IsaDASo ()Lcom/hailie/domain/TimestampMs;
+	public final fun getPhase ()Lcom/hailie/domain/BreakerPhase;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/ConnectionStatus : java/lang/Enum {
+	public static final field Connected Lcom/hailie/domain/ConnectionStatus;
+	public static final field Connecting Lcom/hailie/domain/ConnectionStatus;
+	public static final field Disconnected Lcom/hailie/domain/ConnectionStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/hailie/domain/ConnectionStatus;
+	public static fun values ()[Lcom/hailie/domain/ConnectionStatus;
+}
+
+public final class com/hailie/domain/DeviceId {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lcom/hailie/domain/DeviceId;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getRaw ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public abstract interface class com/hailie/domain/DisconnectReason {
+}
+
+public final class com/hailie/domain/DisconnectReason$Custom : com/hailie/domain/DisconnectReason {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/hailie/domain/DisconnectReason$Custom;
+	public static synthetic fun copy$default (Lcom/hailie/domain/DisconnectReason$Custom;Ljava/lang/String;ILjava/lang/Object;)Lcom/hailie/domain/DisconnectReason$Custom;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/DisconnectReason$GattError : com/hailie/domain/DisconnectReason {
+	public static final field INSTANCE Lcom/hailie/domain/DisconnectReason$GattError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/DisconnectReason$PeerClosed : com/hailie/domain/DisconnectReason {
+	public static final field INSTANCE Lcom/hailie/domain/DisconnectReason$PeerClosed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/DisconnectReason$Timeout : com/hailie/domain/DisconnectReason {
+	public static final field INSTANCE Lcom/hailie/domain/DisconnectReason$Timeout;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/hailie/domain/DomainError {
+}
+
+public final class com/hailie/domain/DomainError$PermissionRequired : com/hailie/domain/DomainError {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/hailie/domain/DomainError$PermissionRequired;
+	public static synthetic fun copy$default (Lcom/hailie/domain/DomainError$PermissionRequired;Ljava/lang/String;ILjava/lang/Object;)Lcom/hailie/domain/DomainError$PermissionRequired;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPermission ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/DomainError$Protocol : com/hailie/domain/DomainError {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/hailie/domain/DomainError$Protocol;
+	public static synthetic fun copy$default (Lcom/hailie/domain/DomainError$Protocol;Ljava/lang/String;ILjava/lang/Object;)Lcom/hailie/domain/DomainError$Protocol;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/DomainError$Transport : com/hailie/domain/DomainError {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Integer;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Integer;
+	public final fun copy (Ljava/lang/String;Ljava/lang/Integer;)Lcom/hailie/domain/DomainError$Transport;
+	public static synthetic fun copy$default (Lcom/hailie/domain/DomainError$Transport;Ljava/lang/String;Ljava/lang/Integer;ILjava/lang/Object;)Lcom/hailie/domain/DomainError$Transport;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCode ()Ljava/lang/Integer;
+	public final fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/DomainError$Unexpected : com/hailie/domain/DomainError {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/hailie/domain/DomainError$Unexpected;
+	public static synthetic fun copy$default (Lcom/hailie/domain/DomainError$Unexpected;Ljava/lang/String;ILjava/lang/Object;)Lcom/hailie/domain/DomainError$Unexpected;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/DomainError$UserActionRequired : com/hailie/domain/DomainError {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/hailie/domain/DomainError$UserActionRequired;
+	public static synthetic fun copy$default (Lcom/hailie/domain/DomainError$UserActionRequired;Ljava/lang/String;ILjava/lang/Object;)Lcom/hailie/domain/DomainError$UserActionRequired;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAction ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/EventCount {
+	public static final synthetic fun box-impl (J)Lcom/hailie/domain/EventCount;
+	public static fun constructor-impl (J)J
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (JLjava/lang/Object;)Z
+	public static final fun equals-impl0 (JJ)Z
+	public final fun getValue ()J
+	public fun hashCode ()I
+	public static fun hashCode-impl (J)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (J)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()J
+}
+
+public final class com/hailie/domain/EventOffset {
+	public static final synthetic fun box-impl (J)Lcom/hailie/domain/EventOffset;
+	public static fun constructor-impl (J)J
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (JLjava/lang/Object;)Z
+	public static final fun equals-impl0 (JJ)Z
+	public final fun getValue ()J
+	public fun hashCode ()I
+	public static fun hashCode-impl (J)I
+	public static final fun plus-mRxpjLo (JJ)J
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (J)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()J
+}
+
+public final class com/hailie/domain/EventRange {
+	public synthetic fun <init> (JJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-lXtqNcE ()J
+	public final fun component2-lXtqNcE ()J
+	public final fun copy-5Pq5igM (JJ)Lcom/hailie/domain/EventRange;
+	public static synthetic fun copy-5Pq5igM$default (Lcom/hailie/domain/EventRange;JJILjava/lang/Object;)Lcom/hailie/domain/EventRange;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCount ()J
+	public final fun getEndExclusive-lXtqNcE ()J
+	public final fun getStartInclusive-lXtqNcE ()J
+	public fun hashCode ()I
+	public final fun isEmpty ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/PageSize {
+	public static final synthetic fun box-impl (I)Lcom/hailie/domain/PageSize;
+	public static fun constructor-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public abstract interface class com/hailie/domain/RetryReason {
+}
+
+public final class com/hailie/domain/RetryReason$BackoffAfterFailure : com/hailie/domain/RetryReason {
+	public static final field INSTANCE Lcom/hailie/domain/RetryReason$BackoffAfterFailure;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/RetryReason$Custom : com/hailie/domain/RetryReason {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/hailie/domain/RetryReason$Custom;
+	public static synthetic fun copy$default (Lcom/hailie/domain/RetryReason$Custom;Ljava/lang/String;ILjava/lang/Object;)Lcom/hailie/domain/RetryReason$Custom;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/RetryReason$RadioBusy : com/hailie/domain/RetryReason {
+	public static final field INSTANCE Lcom/hailie/domain/RetryReason$RadioBusy;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/RetryReason$TemporaryGattError : com/hailie/domain/RetryReason {
+	public static final field INSTANCE Lcom/hailie/domain/RetryReason$TemporaryGattError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/SagaCursor {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lcom/hailie/domain/SagaCursor;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getLabel ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/TimestampMs {
+	public static final synthetic fun box-impl (J)Lcom/hailie/domain/TimestampMs;
+	public static fun constructor-impl (J)J
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (JLjava/lang/Object;)Z
+	public static final fun equals-impl0 (JJ)Z
+	public final fun getValue ()J
+	public fun hashCode ()I
+	public static fun hashCode-impl (J)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (J)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()J
+}
+
+public final class com/hailie/domain/commands/Acknowledge : com/hailie/domain/commands/Command {
+	public synthetic fun <init> (Ljava/lang/String;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-lXtqNcE ()J
+	public final fun copy-y0BiGhE (Ljava/lang/String;J)Lcom/hailie/domain/commands/Acknowledge;
+	public static synthetic fun copy-y0BiGhE$default (Lcom/hailie/domain/commands/Acknowledge;Ljava/lang/String;JILjava/lang/Object;)Lcom/hailie/domain/commands/Acknowledge;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getUpTo-lXtqNcE ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/commands/BondDevice : com/hailie/domain/commands/Command {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun copy-6Qdsz-o (Ljava/lang/String;)Lcom/hailie/domain/commands/BondDevice;
+	public static synthetic fun copy-6Qdsz-o$default (Lcom/hailie/domain/commands/BondDevice;Ljava/lang/String;ILjava/lang/Object;)Lcom/hailie/domain/commands/BondDevice;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/hailie/domain/commands/Command {
+	public abstract fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/commands/ConnectGatt : com/hailie/domain/commands/Command {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun copy-6Qdsz-o (Ljava/lang/String;)Lcom/hailie/domain/commands/ConnectGatt;
+	public static synthetic fun copy-6Qdsz-o$default (Lcom/hailie/domain/commands/ConnectGatt;Ljava/lang/String;ILjava/lang/Object;)Lcom/hailie/domain/commands/ConnectGatt;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/commands/DeliverToApp : com/hailie/domain/commands/Command {
+	public synthetic fun <init> (Ljava/lang/String;Lcom/hailie/domain/EventRange;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2 ()Lcom/hailie/domain/EventRange;
+	public final fun copy-T4xMTfM (Ljava/lang/String;Lcom/hailie/domain/EventRange;)Lcom/hailie/domain/commands/DeliverToApp;
+	public static synthetic fun copy-T4xMTfM$default (Lcom/hailie/domain/commands/DeliverToApp;Ljava/lang/String;Lcom/hailie/domain/EventRange;ILjava/lang/Object;)Lcom/hailie/domain/commands/DeliverToApp;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getRange ()Lcom/hailie/domain/EventRange;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/commands/ReadEventCount : com/hailie/domain/commands/Command {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun copy-6Qdsz-o (Ljava/lang/String;)Lcom/hailie/domain/commands/ReadEventCount;
+	public static synthetic fun copy-6Qdsz-o$default (Lcom/hailie/domain/commands/ReadEventCount;Ljava/lang/String;ILjava/lang/Object;)Lcom/hailie/domain/commands/ReadEventCount;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/commands/ReadEvents : com/hailie/domain/commands/Command {
+	public synthetic fun <init> (Ljava/lang/String;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-lXtqNcE ()J
+	public final fun component3 ()I
+	public final fun copy-vSBjs1w (Ljava/lang/String;JI)Lcom/hailie/domain/commands/ReadEvents;
+	public static synthetic fun copy-vSBjs1w$default (Lcom/hailie/domain/commands/ReadEvents;Ljava/lang/String;JIILjava/lang/Object;)Lcom/hailie/domain/commands/ReadEvents;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCount ()I
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getOffset-lXtqNcE ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/commands/ScheduleRetry : com/hailie/domain/commands/Command {
+	public synthetic fun <init> (Ljava/lang/String;JLcom/hailie/domain/RetryReason;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun component3 ()Lcom/hailie/domain/RetryReason;
+	public final fun copy-8MscU94 (Ljava/lang/String;JLcom/hailie/domain/RetryReason;)Lcom/hailie/domain/commands/ScheduleRetry;
+	public static synthetic fun copy-8MscU94$default (Lcom/hailie/domain/commands/ScheduleRetry;Ljava/lang/String;JLcom/hailie/domain/RetryReason;ILjava/lang/Object;)Lcom/hailie/domain/commands/ScheduleRetry;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAfter-l8VicOg ()J
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getReason ()Lcom/hailie/domain/RetryReason;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/commands/Stop : com/hailie/domain/commands/Command {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun copy-6Qdsz-o (Ljava/lang/String;)Lcom/hailie/domain/commands/Stop;
+	public static synthetic fun copy-6Qdsz-o$default (Lcom/hailie/domain/commands/Stop;Ljava/lang/String;ILjava/lang/Object;)Lcom/hailie/domain/commands/Stop;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/events/DeviceBonded : com/hailie/domain/events/Event {
+	public synthetic fun <init> (Ljava/lang/String;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun copy-i2GeXmQ (Ljava/lang/String;J)Lcom/hailie/domain/events/DeviceBonded;
+	public static synthetic fun copy-i2GeXmQ$default (Lcom/hailie/domain/events/DeviceBonded;Ljava/lang/String;JILjava/lang/Object;)Lcom/hailie/domain/events/DeviceBonded;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAt-l8VicOg ()J
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/events/DeviceConnected : com/hailie/domain/events/Event {
+	public synthetic fun <init> (Ljava/lang/String;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun copy-i2GeXmQ (Ljava/lang/String;J)Lcom/hailie/domain/events/DeviceConnected;
+	public static synthetic fun copy-i2GeXmQ$default (Lcom/hailie/domain/events/DeviceConnected;Ljava/lang/String;JILjava/lang/Object;)Lcom/hailie/domain/events/DeviceConnected;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAt-l8VicOg ()J
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/events/Disconnected : com/hailie/domain/events/Event {
+	public synthetic fun <init> (Ljava/lang/String;JLcom/hailie/domain/DisconnectReason;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;JLcom/hailie/domain/DisconnectReason;Ljava/lang/Integer;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun component3 ()Lcom/hailie/domain/DisconnectReason;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun copy-O9PM9Uk (Ljava/lang/String;JLcom/hailie/domain/DisconnectReason;Ljava/lang/Integer;)Lcom/hailie/domain/events/Disconnected;
+	public static synthetic fun copy-O9PM9Uk$default (Lcom/hailie/domain/events/Disconnected;Ljava/lang/String;JLcom/hailie/domain/DisconnectReason;Ljava/lang/Integer;ILjava/lang/Object;)Lcom/hailie/domain/events/Disconnected;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAt-l8VicOg ()J
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getGattCode ()Ljava/lang/Integer;
+	public final fun getReason ()Lcom/hailie/domain/DisconnectReason;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/hailie/domain/events/Event {
+	public abstract fun getAt-l8VicOg ()J
+	public abstract fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/events/EventCountLoaded : com/hailie/domain/events/Event {
+	public synthetic fun <init> (Ljava/lang/String;JJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun component3-H0WrXW4 ()J
+	public final fun copy-UaZaSgM (Ljava/lang/String;JJ)Lcom/hailie/domain/events/EventCountLoaded;
+	public static synthetic fun copy-UaZaSgM$default (Lcom/hailie/domain/events/EventCountLoaded;Ljava/lang/String;JJILjava/lang/Object;)Lcom/hailie/domain/events/EventCountLoaded;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAt-l8VicOg ()J
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getTotal-H0WrXW4 ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/events/EventsAcked : com/hailie/domain/events/Event {
+	public synthetic fun <init> (Ljava/lang/String;JJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun component3-lXtqNcE ()J
+	public final fun copy-diwUSGc (Ljava/lang/String;JJ)Lcom/hailie/domain/events/EventsAcked;
+	public static synthetic fun copy-diwUSGc$default (Lcom/hailie/domain/events/EventsAcked;Ljava/lang/String;JJILjava/lang/Object;)Lcom/hailie/domain/events/EventsAcked;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAt-l8VicOg ()J
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getUpTo-lXtqNcE ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/events/EventsDelivered : com/hailie/domain/events/Event {
+	public synthetic fun <init> (Ljava/lang/String;JLcom/hailie/domain/EventRange;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun component3 ()Lcom/hailie/domain/EventRange;
+	public final fun copy-8MscU94 (Ljava/lang/String;JLcom/hailie/domain/EventRange;)Lcom/hailie/domain/events/EventsDelivered;
+	public static synthetic fun copy-8MscU94$default (Lcom/hailie/domain/events/EventsDelivered;Ljava/lang/String;JLcom/hailie/domain/EventRange;ILjava/lang/Object;)Lcom/hailie/domain/events/EventsDelivered;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAt-l8VicOg ()J
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getRange ()Lcom/hailie/domain/EventRange;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/events/EventsRead : com/hailie/domain/events/Event {
+	public synthetic fun <init> (Ljava/lang/String;JLcom/hailie/domain/EventRange;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun component3 ()Lcom/hailie/domain/EventRange;
+	public final fun copy-8MscU94 (Ljava/lang/String;JLcom/hailie/domain/EventRange;)Lcom/hailie/domain/events/EventsRead;
+	public static synthetic fun copy-8MscU94$default (Lcom/hailie/domain/events/EventsRead;Ljava/lang/String;JLcom/hailie/domain/EventRange;ILjava/lang/Object;)Lcom/hailie/domain/events/EventsRead;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAt-l8VicOg ()J
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getRange ()Lcom/hailie/domain/EventRange;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/events/RetryScheduled : com/hailie/domain/events/Event {
+	public synthetic fun <init> (Ljava/lang/String;JJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun component3-l8VicOg ()J
+	public final fun copy-1hbDTiU (Ljava/lang/String;JJ)Lcom/hailie/domain/events/RetryScheduled;
+	public static synthetic fun copy-1hbDTiU$default (Lcom/hailie/domain/events/RetryScheduled;Ljava/lang/String;JJILjava/lang/Object;)Lcom/hailie/domain/events/RetryScheduled;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAfter-l8VicOg ()J
+	public fun getAt-l8VicOg ()J
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/events/SyncCompleted : com/hailie/domain/events/Event {
+	public synthetic fun <init> (Ljava/lang/String;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun copy-i2GeXmQ (Ljava/lang/String;J)Lcom/hailie/domain/events/SyncCompleted;
+	public static synthetic fun copy-i2GeXmQ$default (Lcom/hailie/domain/events/SyncCompleted;Ljava/lang/String;JILjava/lang/Object;)Lcom/hailie/domain/events/SyncCompleted;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAt-l8VicOg ()J
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/events/SyncFailed : com/hailie/domain/events/Event {
+	public synthetic fun <init> (Ljava/lang/String;JLcom/hailie/domain/DomainError;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component2-l8VicOg ()J
+	public final fun component3 ()Lcom/hailie/domain/DomainError;
+	public final fun copy-8MscU94 (Ljava/lang/String;JLcom/hailie/domain/DomainError;)Lcom/hailie/domain/events/SyncFailed;
+	public static synthetic fun copy-8MscU94$default (Lcom/hailie/domain/events/SyncFailed;Ljava/lang/String;JLcom/hailie/domain/DomainError;ILjava/lang/Object;)Lcom/hailie/domain/events/SyncFailed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getAt-l8VicOg ()J
+	public fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getReason ()Lcom/hailie/domain/DomainError;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/model/SyncAggregate {
+	public synthetic fun <init> (Ljava/lang/String;Lcom/hailie/domain/BondStatus;Lcom/hailie/domain/ConnectionStatus;JLcom/hailie/domain/EventOffset;JILcom/hailie/domain/AttemptCounters;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/DomainError;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/hailie/domain/BondStatus;Lcom/hailie/domain/ConnectionStatus;JLcom/hailie/domain/EventOffset;JILcom/hailie/domain/AttemptCounters;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/DomainError;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-Q1XiGFY ()Ljava/lang/String;
+	public final fun component10 ()Lcom/hailie/domain/BreakerState;
+	public final fun component11 ()Lcom/hailie/domain/BreakerState;
+	public final fun component12 ()Lcom/hailie/domain/BreakerState;
+	public final fun component13 ()Lcom/hailie/domain/BreakerState;
+	public final fun component14 ()Lcom/hailie/domain/DomainError;
+	public final fun component15-fZOzdw0 ()Ljava/lang/String;
+	public final fun component2 ()Lcom/hailie/domain/BondStatus;
+	public final fun component3 ()Lcom/hailie/domain/ConnectionStatus;
+	public final fun component4-lXtqNcE ()J
+	public final fun component5-n2NVb3I ()Lcom/hailie/domain/EventOffset;
+	public final fun component6-H0WrXW4 ()J
+	public final fun component7-OV6LaTU ()I
+	public final fun component8 ()Lcom/hailie/domain/AttemptCounters;
+	public final fun component9 ()Lcom/hailie/domain/BreakerState;
+	public final fun copy-hF9zUY4 (Ljava/lang/String;Lcom/hailie/domain/BondStatus;Lcom/hailie/domain/ConnectionStatus;JLcom/hailie/domain/EventOffset;JILcom/hailie/domain/AttemptCounters;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/DomainError;Ljava/lang/String;)Lcom/hailie/domain/model/SyncAggregate;
+	public static synthetic fun copy-hF9zUY4$default (Lcom/hailie/domain/model/SyncAggregate;Ljava/lang/String;Lcom/hailie/domain/BondStatus;Lcom/hailie/domain/ConnectionStatus;JLcom/hailie/domain/EventOffset;JILcom/hailie/domain/AttemptCounters;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/BreakerState;Lcom/hailie/domain/DomainError;Ljava/lang/String;ILjava/lang/Object;)Lcom/hailie/domain/model/SyncAggregate;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAckBreaker ()Lcom/hailie/domain/BreakerState;
+	public final fun getAttempts ()Lcom/hailie/domain/AttemptCounters;
+	public final fun getBondBreaker ()Lcom/hailie/domain/BreakerState;
+	public final fun getBondStatus ()Lcom/hailie/domain/BondStatus;
+	public final fun getConnectBreaker ()Lcom/hailie/domain/BreakerState;
+	public final fun getConnectionStatus ()Lcom/hailie/domain/ConnectionStatus;
+	public final fun getDeliverBreaker ()Lcom/hailie/domain/BreakerState;
+	public final fun getDeviceId-Q1XiGFY ()Ljava/lang/String;
+	public final fun getHasInFlight ()Z
+	public final fun getInFlightOffset-n2NVb3I ()Lcom/hailie/domain/EventOffset;
+	public final fun getLastAckedExclusive-lXtqNcE ()J
+	public final fun getLastError ()Lcom/hailie/domain/DomainError;
+	public final fun getPageSize-OV6LaTU ()I
+	public final fun getReadBreaker ()Lcom/hailie/domain/BreakerState;
+	public final fun getSagaCursor-fZOzdw0 ()Ljava/lang/String;
+	public final fun getTotalOnDevice-H0WrXW4 ()J
+	public fun hashCode ()I
+	public final fun isFullyAcked ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/model/SyncAggregateKt {
+	public static final fun initialSyncAggregate-T4xMTfM (Ljava/lang/String;I)Lcom/hailie/domain/model/SyncAggregate;
+	public static synthetic fun initialSyncAggregate-T4xMTfM$default (Ljava/lang/String;IILjava/lang/Object;)Lcom/hailie/domain/model/SyncAggregate;
+}
+
