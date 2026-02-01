@@ -600,6 +600,10 @@ public final class com/hailie/domain/model/SyncAggregate {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/hailie/domain/model/SyncAggregateApplyKt {
+	public static final fun applyEvent (Lcom/hailie/domain/model/SyncAggregate;Lcom/hailie/domain/events/Event;)Lcom/hailie/domain/model/SyncAggregate;
+}
+
 public final class com/hailie/domain/model/SyncAggregateKt {
 	public static final fun initialSyncAggregate-T4xMTfM (Ljava/lang/String;I)Lcom/hailie/domain/model/SyncAggregate;
 	public static synthetic fun initialSyncAggregate-T4xMTfM$default (Ljava/lang/String;IILjava/lang/Object;)Lcom/hailie/domain/model/SyncAggregate;
@@ -679,5 +683,24 @@ public final class com/hailie/domain/policy/SimpleBreakerPolicy : com/hailie/dom
 	public fun isCallAllowed-1_AN8L0 (JLcom/hailie/domain/BreakerState;)Z
 	public fun onFailure-EbYnHCo (JLcom/hailie/domain/BreakerState;Lcom/hailie/domain/DomainError;)Lcom/hailie/domain/BreakerState;
 	public fun onSuccess-1_AN8L0 (JLcom/hailie/domain/BreakerState;)Lcom/hailie/domain/BreakerState;
+}
+
+public final class com/hailie/domain/saga/AttemptKeys {
+	public static final field INSTANCE Lcom/hailie/domain/saga/AttemptKeys;
+	public final fun getACK-i9I8bNQ ()Ljava/lang/String;
+	public final fun getBOND-i9I8bNQ ()Ljava/lang/String;
+	public final fun getCONNECT-i9I8bNQ ()Ljava/lang/String;
+	public final fun getDELIVER-i9I8bNQ ()Ljava/lang/String;
+	public final fun getREAD_COUNT-i9I8bNQ ()Ljava/lang/String;
+	public final fun getREAD_PAGE-i9I8bNQ ()Ljava/lang/String;
+}
+
+public final class com/hailie/domain/saga/DefaultSaga : com/hailie/domain/saga/Saga {
+	public fun <init> (Lcom/hailie/domain/policy/RetryPolicy;Lcom/hailie/domain/policy/BreakerPolicy;Lcom/hailie/domain/policy/BreakerPolicy;Lcom/hailie/domain/policy/BreakerPolicy;Lcom/hailie/domain/policy/BreakerPolicy;Lcom/hailie/domain/policy/PageSizingPolicy;)V
+	public fun decide-vOlqrbc (Lcom/hailie/domain/model/SyncAggregate;Lcom/hailie/domain/events/Event;J)Ljava/util/List;
+}
+
+public abstract interface class com/hailie/domain/saga/Saga {
+	public abstract fun decide-vOlqrbc (Lcom/hailie/domain/model/SyncAggregate;Lcom/hailie/domain/events/Event;J)Ljava/util/List;
 }
 
