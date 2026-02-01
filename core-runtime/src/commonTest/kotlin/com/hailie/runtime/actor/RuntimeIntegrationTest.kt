@@ -21,7 +21,6 @@ import com.hailie.runtime.fakes.FaultScript
 import com.hailie.runtime.ports.StateStorePort
 import com.hailie.runtime.ports.TelemetryPort
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 private fun saga(): Saga =
@@ -72,7 +71,7 @@ class RuntimeIntegrationTest {
         // Kick flow by simulating initial count load
         actor
             .offer(
-                Msg.DomainEvent(
+                Message.DomainEvent(
                     com.hailie.domain.events.EventCountLoaded(
                         device,
                         clock.now(),
@@ -84,7 +83,7 @@ class RuntimeIntegrationTest {
 
         // One page read, deliver, ack; actor should serialize and not overlap reads (enforced internally)
         actor.offer(
-            Msg.DomainEvent(
+            Message.DomainEvent(
                 com.hailie.domain.events.EventsRead(
                     device,
                     clock.now(),
@@ -93,7 +92,7 @@ class RuntimeIntegrationTest {
             ),
         )
         actor.offer(
-            Msg.DomainEvent(
+            Message.DomainEvent(
                 com.hailie.domain.events.EventsDelivered(
                     device,
                     clock.now(),
@@ -102,7 +101,7 @@ class RuntimeIntegrationTest {
             ),
         )
         actor.offer(
-            Msg.DomainEvent(
+            Message.DomainEvent(
                 com.hailie.domain.events.EventsAcked(
                     device,
                     clock.now(),
@@ -136,17 +135,25 @@ class RuntimeIntegrationTest {
         actor.start()
 
         // Count loaded -> Read page
-        actor.offer(Msg.DomainEvent(com.hailie.domain.events.EventCountLoaded(device, clock.now(), total = EventCount(60))))
+        actor.offer(
+            Message.DomainEvent(
+                com.hailie.domain.events.EventCountLoaded(
+                    device,
+                    clock.now(),
+                    total = EventCount(60),
+                ),
+            ),
+        )
         clock.advanceBy(0)
 
         // Actor will request read page; simulate read success
         val range = com.hailie.domain.EventRange(EventOffset(0), EventOffset(50))
-        actor.offer(Msg.DomainEvent(com.hailie.domain.events.EventsRead(device, clock.now(), range)))
+        actor.offer(Message.DomainEvent(com.hailie.domain.events.EventsRead(device, clock.now(), range)))
         clock.advanceBy(0)
 
         // First delivery fails -> SyncFailed will be emitted by FakeDelivery (we simulate by feeding it)
         actor.offer(
-            Msg.DomainEvent(
+            Message.DomainEvent(
                 com.hailie.domain.events.SyncFailed(
                     device,
                     clock.now(),
@@ -158,13 +165,18 @@ class RuntimeIntegrationTest {
 
         // After failure, next decision will try delivery again or shrink page size on next cycle.
         // We then simulate a successful delivery and ack
-        actor.offer(Msg.DomainEvent(com.hailie.domain.events.EventsDelivered(device, clock.now(), range)))
-        actor.offer(Msg.DomainEvent(com.hailie.domain.events.EventsAcked(device, clock.now(), upTo = EventOffset(50))))
+        actor.offer(Message.DomainEvent(com.hailie.domain.events.EventsDelivered(device, clock.now(), range)))
+        actor.offer(Message.DomainEvent(com.hailie.domain.events.EventsAcked(device, clock.now(), upTo = EventOffset(50))))
         clock.advanceBy(0)
 
+        // Wait until snapshot reflects the acked value (actor processes mailbox asynchronously)
+        val ok =
+            waitUntil(timeoutMs = 500) {
+                store.read(device)?.lastAckedExclusive?.value == 50L
+            }
+
         // Verify snapshot got written at ack (stored lastAck)
-        val snap = store.read(device)
-        assertEquals(50, snap?.lastAckedExclusive?.value ?: -1)
+        kotlin.test.assertTrue(ok, "Expected lastAckedExclusive=50 to be persisted in snapshot within timeout")
     }
 
     @Test
@@ -187,7 +199,7 @@ class RuntimeIntegrationTest {
 
         // Trigger disconnect event -> actor tries to connect (first failure)
         actor.offer(
-            Msg.DomainEvent(
+            Message.DomainEvent(
                 com.hailie.domain.events.Disconnected(
                     device,
                     clock.now(),
@@ -236,10 +248,27 @@ class RuntimeIntegrationTest {
         actor.start()
 
         // Actor should load snapshot and request next work from lastAck=50 when count shows more work
-        actor.offer(Msg.DomainEvent(com.hailie.domain.events.EventCountLoaded(device, clock.now(), total = EventCount(120))))
+        actor.offer(Message.DomainEvent(com.hailie.domain.events.EventCountLoaded(device, clock.now(), total = EventCount(120))))
         clock.advanceBy(0)
 
         // No exceptions: resume path worked. Telemetry contains snapshot_restored.
         assertTrue(telemetry.events.any { it.name == "snapshot_restored" })
     }
+}
+
+private fun waitUntil(
+    timeoutMs: Long = 500,
+    condition: () -> Boolean,
+): Boolean {
+    val deadline = System.nanoTime() + timeoutMs * 1_000_000
+    while (System.nanoTime() < deadline) {
+        if (condition()) return true
+        // Small sleep to yield CPU; no experimental APIs
+        try {
+            Thread.sleep(1)
+        } catch (_: InterruptedException) {
+            // ignore
+        }
+    }
+    return false
 }

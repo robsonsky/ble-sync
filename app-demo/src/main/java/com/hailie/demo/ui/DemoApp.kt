@@ -4,13 +4,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.hailie.runtimeactor.BleSyncActor
+import com.hailie.runtime.actor.SyncActor
 import org.koin.compose.koinInject
 
 @Composable
 fun demoApp() {
     // This is the symbol that needs the Koin Compose dependency AND the correct import
-    val actor = koinInject<BleSyncActor>()
+    val actor = koinInject<SyncActor>()
 
     MaterialTheme {
         Surface {

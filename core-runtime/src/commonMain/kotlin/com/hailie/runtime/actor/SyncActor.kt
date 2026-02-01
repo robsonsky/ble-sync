@@ -26,13 +26,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.runBlocking
 
 /**
  * Single-threaded runtime that:
- * - Processes one message at a time (mailbox)
+ * - Processes one message at a time (mailbox consumer coroutine)
  * - Applies events to state and decides next commands via Saga
- * - Executes commands via ports (Ble, Delivery)
+ * - Executes commands via ports (Ble, Delivery) INLINE in the consumer (strict serialization)
  * - Enforces backpressure (only one ReadEvents in-flight)
  * - Schedules retries via ClockPort (cancellable)
  * - Emits telemetry and snapshots state on significant transitions
@@ -49,8 +49,9 @@ class SyncActor(
     private var state: SyncAggregate = initialState
     private val deviceId: DeviceId = initialState.deviceId
 
-    private val mailbox = Channel<Msg>(capacity = Channel.UNLIMITED)
-    private val dispatcher = Dispatchers.Default.limitedParallelism(1)
+    // Mailbox and single consumer ensure serialization without experimental APIs
+    private val mailbox = Channel<Message>(capacity = Channel.UNLIMITED)
+    private val dispatcher = Dispatchers.Default
     private val scope = CoroutineScope(Job() + dispatcher)
     private var runningJob: Job? = null
 
@@ -58,29 +59,34 @@ class SyncActor(
     private var readInFlight: Boolean = false
 
     fun start() {
+        // Bootstrap synchronously: restore snapshot and run initial decision
+        runBlocking(dispatcher) {
+            handleStart()
+        }
+        // Start mailbox consumer (single coroutine = strict serialization)
         runningJob =
             scope.launch {
                 for (msg in mailbox) {
                     when (msg) {
-                        is Msg.Start -> handleStart()
-                        is Msg.DomainEvent -> handleDomainEvent(msg.event)
-                        is Msg.TimerFired -> handleTimerFired()
-                        is Msg.Stop -> {
+                        is Message.Start -> { /* bootstrap already handled */ }
+                        is Message.DomainEvent -> handleDomainEvent(msg.event)
+                        is Message.TimerFired -> handleTimerFired()
+                        is Message.Stop -> {
                             cancelRetry()
                             break
                         }
                     }
                 }
             }
-        offer(Msg.Start)
     }
 
     fun stop() {
-        offer(Msg.Stop)
+        offer(Message.Stop)
         runningJob?.invokeOnCompletion { mailbox.close() }
     }
 
-    fun offer(msg: Msg) {
+    fun offer(msg: Message) {
+        // Non-blocking send; handled by the single consumer
         scope.launch(dispatcher) { mailbox.send(msg) }
     }
 
@@ -100,16 +106,24 @@ class SyncActor(
 
     private suspend fun handleDomainEvent(ev: Event) {
         state = state.applyEvent(ev)
-        // Adjust runtime flags when liftetime transitions happen
         when (ev) {
-            is com.hailie.domain.events.EventsRead -> readInFlight = true
-            is com.hailie.domain.events.EventsAcked -> if (!state.hasInFlight) readInFlight = false
+            is com.hailie.domain.events.EventsRead -> {
+                readInFlight = true
+            }
+            is com.hailie.domain.events.EventsAcked -> {
+                if (!state.hasInFlight) {
+                    readInFlight = false
+                }
+                // Save snapshot after a successful ack (deterministic)
+                snapshot("acked")
+            }
             is com.hailie.domain.events.Disconnected -> {
                 // Opportunistic snapshot on disconnect
                 snapshot("disconnected")
             }
-            is com.hailie.domain.events.EventsAcked -> snapshot("acked")
-            else -> { /* no-op */ }
+            else -> {
+                // no-op
+            }
         }
         decideAndExecute(lastEvent = ev)
     }
@@ -125,34 +139,54 @@ class SyncActor(
     private suspend fun decideAndExecute(lastEvent: Event?) {
         val now = clock.now()
         val commands = saga.decide(state, lastEvent, now)
-
         for (cmd in commands) {
             when (cmd) {
                 is ScheduleRetry -> {
                     cancelRetry()
-                    retryToken = clock.schedule(cmd.after) { offer(Msg.TimerFired) }
+                    retryToken = clock.schedule(cmd.after) { offer(Message.TimerFired) }
                     telemetry.emit(
                         TelemetryEvent(
                             name = "retry_scheduled",
                             at = now,
                             deviceId = deviceId.raw,
-                            data = mapOf("after" to cmd.after.value.toString(), "reason" to cmd.reason::class.simpleName.orEmpty()),
+                            data =
+                                mapOf(
+                                    "after" to cmd.after.value.toString(),
+                                    "reason" to cmd.reason::class.simpleName.orEmpty(),
+                                ),
                         ),
                     )
                 }
-                is BondDevice -> executeBle { ble.bond(cmd.deviceId) }
-                is ConnectGatt -> executeBle { ble.connect(cmd.deviceId) }
-                is ReadEventCount -> executeBle { ble.readCount(cmd.deviceId) }
+                is BondDevice -> {
+                    // INLINE execution to keep strict serialization
+                    val ev = ble.bond(cmd.deviceId)
+                    offer(Message.DomainEvent(ev))
+                }
+                is ConnectGatt -> {
+                    val ev = ble.connect(cmd.deviceId)
+                    offer(Message.DomainEvent(ev))
+                }
+                is ReadEventCount -> {
+                    val ev = ble.readCount(cmd.deviceId)
+                    offer(Message.DomainEvent(ev))
+                }
                 is ReadEvents -> {
                     if (readInFlight) {
                         telemetry.emit(TelemetryEvent("read_skipped_backpressure", now, deviceId.raw))
                     } else {
                         readInFlight = true
-                        executeBle { ble.readPage(cmd.deviceId, cmd.offset, cmd.count) }
+                        val ev = ble.readPage(cmd.deviceId, cmd.offset, cmd.count)
+                        offer(Message.DomainEvent(ev))
                     }
                 }
-                is DeliverToApp -> executeDelivery { delivery.deliver(cmd.deviceId, cmd.range) }
-                is Acknowledge -> executeBle { ble.ack(cmd.deviceId, cmd.upTo) }
+                is DeliverToApp -> {
+                    val ev = delivery.deliver(cmd.deviceId, cmd.range)
+                    offer(Message.DomainEvent(ev))
+                }
+                is Acknowledge -> {
+                    val ev = ble.ack(cmd.deviceId, cmd.upTo)
+                    offer(Message.DomainEvent(ev))
+                }
                 else -> {
                     telemetry.emit(
                         TelemetryEvent(
@@ -165,16 +199,6 @@ class SyncActor(
                 }
             }
         }
-    }
-
-    private suspend fun executeBle(block: () -> Event) {
-        val ev = withContext(dispatcher) { block() }
-        offer(Msg.DomainEvent(ev))
-    }
-
-    private suspend fun executeDelivery(block: () -> Event) {
-        val ev = withContext(dispatcher) { block() }
-        offer(Msg.DomainEvent(ev))
     }
 
     private fun cancelRetry() {
