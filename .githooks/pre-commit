@@ -5,5 +5,5 @@ echo "Running Spotless..."
 echo "Running Detekt..."
 ./gradlew -q detekt
 echo "Running unit tests (JVM modules)..."
-./gradlew -q :ports:test :runtime-actor:test :fakes:test
+./gradlew -q :ports:test :core-domain:check :core-runtime:check :fakes:test
 echo "OK"
