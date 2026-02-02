@@ -3,7 +3,6 @@ package com.hailie.demo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,9 +22,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -44,118 +41,111 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Suppress("LongMethod")
+@Suppress("LongMethod", "Indentation")
 fun scenarioLabApp(vm: ScenarioViewModel = viewModel()) {
     val ui by vm.ui.collectAsState()
+    val scroll = rememberScrollState()
 
     MaterialTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(title = { Text("Scenario Lab") }, actions = {
-                    Row(Modifier.padding(end = 8.dp)) {
-                        AssistChip(
-                            onClick = { vm.selectPreset(ScenarioPreset.HappyPath) },
-                            label = { Text("Happy Path") },
-                        )
-                        Spacer(
-                            Modifier.width(8.dp),
-                        )
-                        AssistChip(
-                            onClick = { vm.selectPreset(ScenarioPreset.PairingReliability) },
-                            label = { Text("Pairing") },
-                        )
-                        Spacer(
-                            Modifier.width(8.dp),
-                        )
-                        AssistChip(
-                            onClick = { vm.selectPreset(ScenarioPreset.ConnectionStability) },
-                            label = { Text("Stability") },
-                        )
-                        Spacer(
-                            Modifier.width(8.dp),
-                        )
-                        AssistChip(
-                            onClick = { vm.selectPreset(ScenarioPreset.SlowSyncPerformance) },
-                            label = { Text("Slow Perf") },
-                        )
-                    }
-                })
-            },
-            bottomBar = {
-                Column(Modifier.fillMaxWidth().padding(8.dp)) {
-                    Row {
-                        Button(
-                            onClick = { vm.start() },
-                            enabled = !ui.running,
-                        ) { Text("Start") }
-                        Spacer(
-                            Modifier.width(8.dp),
-                        )
-                        OutlinedButton(
-                            onClick = { vm.stop() },
-                            enabled = ui.running,
-                        ) { Text("Stop") }
-                        Spacer(
-                            Modifier.width(8.dp),
-                        )
-                        OutlinedButton(
-                            onClick = { vm.killAppNow() },
-                        ) { Text("Kill App Now") }
-                        Spacer(
-                            Modifier.width(16.dp),
-                        )
-                        Row(
-                            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
-                        ) {
-                            Text("Cold Start Resume")
-                            Spacer(Modifier.width(6.dp))
-                            Switch(checked = ui.coldStartResumeEnabled, onCheckedChange = vm::toggleColdStartResume)
-                        }
-                        Spacer(Modifier.width(16.dp))
-                        OutlinedButton(
-                            onClick = { vm.copyLogsToClipboard() },
-                        ) { Text("Copy Logs") }
-                        Spacer(Modifier.width(8.dp))
-                        OutlinedButton(
-                            onClick = { /* preview */ },
-                            enabled = false,
-                        ) { Text("Export Telemetry JSON") }
-                    }
+        Scaffold { pv ->
+
+            Column(
+                Modifier
+                    .padding(pv)
+                    .fillMaxSize()
+                    .verticalScroll(scroll),
+            ) {
+                Spacer(
+                    Modifier.width(8.dp),
+                )
+                Row(Modifier.padding(end = 8.dp)) {
+                    AssistChip(
+                        onClick = { vm.selectPreset(ScenarioPreset.HappyPath) },
+                        label = { Text("Happy Path") },
+                    )
+                    Spacer(
+                        Modifier.width(8.dp),
+                    )
+                    AssistChip(
+                        onClick = { vm.selectPreset(ScenarioPreset.PairingReliability) },
+                        label = { Text("Pairing") },
+                    )
                 }
-            },
-        ) { pv ->
-            Row(Modifier.padding(pv).fillMaxSize()) {
+                Row(Modifier.padding(end = 8.dp)) {
+                    AssistChip(
+                        onClick = { vm.selectPreset(ScenarioPreset.ConnectionStability) },
+                        label = { Text("Stability") },
+                    )
+                    Spacer(
+                        Modifier.width(8.dp),
+                    )
+                    AssistChip(
+                        onClick = { vm.selectPreset(ScenarioPreset.SlowSyncPerformance) },
+                        label = { Text("Slow Perf") },
+                    )
+                }
+                Row(Modifier.padding(end = 8.dp)) {
+                    Button(
+                        onClick = { vm.start() },
+                        enabled = !ui.running,
+                    ) { Text("Start") }
+                    Spacer(
+                        Modifier.width(8.dp),
+                    )
+                    OutlinedButton(
+                        onClick = { vm.stop() },
+                        enabled = ui.running,
+                    ) { Text("Stop") }
+                    Spacer(
+                        Modifier.width(8.dp),
+                    )
+                    OutlinedButton(
+                        onClick = { vm.killAppNow() },
+                    ) { Text("Kill App Now") }
+                }
+
                 // Left: Fault Injection Panel (accordion)
                 faultPanel(
-                    modifier = Modifier.width(280.dp).fillMaxHeight().padding(8.dp),
+                    modifier = Modifier.weight(1f).fillMaxHeight().padding(8.dp),
                     presetName = ui.selectedPreset.name,
                 )
 
                 // Center: Live State/Timeline & Progress
                 centerPanel(
-                    modifier = Modifier.weight(1f).fillMaxHeight().padding(8.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(100.dp)
+                            .padding(8.dp),
                     progress = ui.progressText,
                 )
 
                 // Right: Metrics/Telemetry Cards
                 metricsPanel(
-                    modifier = Modifier.width(320.dp).fillMaxHeight().padding(8.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(600.dp)
+                            .padding(8.dp),
                     m = ui.metrics,
                     telemetryJson = ui.telemetryJsonPreview,
                 )
-            }
 
-            // Bottom: Log Viewer (collapsible)
-            if (ui.logExpanded) {
-                logPanel(Modifier.fillMaxWidth().height(220.dp), ui.logLines) { vm.toggleLogExpanded() }
-            } else {
-                smallLogToggler { vm.toggleLogExpanded() }
+                logPanel(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(500.dp)
+                            .padding(8.dp),
+                    ui.logLines,
+                )
             }
         }
     }
 }
 
 @Composable
+@Suppress("Indentation")
 fun faultPanel(
     modifier: Modifier,
     presetName: String,
@@ -176,6 +166,7 @@ fun faultPanel(
 }
 
 @Composable
+@Suppress("Indentation")
 fun centerPanel(
     modifier: Modifier,
     progress: String,
@@ -186,17 +177,13 @@ fun centerPanel(
         ElevatedCard(Modifier.fillMaxWidth().weight(1f)) {
             Column(Modifier.padding(12.dp)) {
                 Text("Progress: $progress")
-                Spacer(Modifier.height(8.dp))
-                val state = rememberScrollState()
-                Column(Modifier.verticalScroll(state)) {
-                    repeat(8) { Text("• Timeline lane $it (add your visualizations)") }
-                }
             }
         }
     }
 }
 
 @Composable
+@Suppress("Indentation")
 fun metricsPanel(
     modifier: Modifier,
     m: com.hailie.demo.ui.Metrics,
@@ -251,17 +238,14 @@ fun metricsPanel(
 }
 
 @Composable
+@Suppress("Indentation")
 fun logPanel(
     modifier: Modifier,
     lines: List<String>,
-    onToggle: () -> Unit,
 ) {
     Column(modifier.padding(8.dp)) {
-        Row {
-            Text("Logs", style = MaterialTheme.typography.titleMedium)
-            Spacer(Modifier.weight(1f))
-            OutlinedButton(onClick = onToggle) { Text("Collapse") }
-        }
+        Text("Logs", style = MaterialTheme.typography.titleMedium)
+        Spacer(Modifier.weight(1f))
         Spacer(Modifier.height(6.dp))
         ElevatedCard(Modifier.fillMaxSize()) {
             LazyColumn(Modifier.fillMaxSize().padding(8.dp)) {
@@ -270,12 +254,5 @@ fun logPanel(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun smallLogToggler(onToggle: () -> Unit) {
-    Box(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp)) {
-        OutlinedButton(onClick = onToggle) { Text("Show Logs") }
     }
 }
