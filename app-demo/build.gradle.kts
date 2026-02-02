@@ -76,6 +76,7 @@ dependencies {
     implementation(project(":core-runtime"))
     implementation(project(":ports"))
     implementation(project(":fakes"))
+    implementation(project(":adapters-android"))
 
     // Core
     implementation("androidx.core:core-ktx:1.12.0")
@@ -89,7 +90,12 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2024.02.01"))
     androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.01"))
 
+    // Serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
     // Compose core
+    val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
+    implementation(composeBom)
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
