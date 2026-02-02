@@ -1,6 +1,7 @@
 plugins {
-    id("com.android.library") version "8.2.2"
-    kotlin("android") version "1.9.24"
+    id("com.android.library")
+    kotlin("android")
+    kotlin("plugin.serialization") version "1.9.24"
 }
 
 android {
@@ -37,11 +38,24 @@ android {
 }
 
 dependencies {
+    implementation(project(":core-domain"))
+    implementation(project(":core-runtime"))
     implementation(project(":ports"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("androidx.core:core-ktx:1.12.0")
 
-    implementation(libs.koin.android)
+    // Android framework + security
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
-    testImplementation(kotlin("test"))
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+
+    // Serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+    // Koin
+    implementation("io.insert-koin:koin-android:3.5.6")
+
+    // Unit test (JVM)
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.24")
 }
