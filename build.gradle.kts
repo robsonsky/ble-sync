@@ -14,6 +14,21 @@ plugins {
 
 subprojects {
     apply(plugin = "com.diffplug.spotless")
+
+    plugins.withId("org.jetbrains.kotlin.jvm") {
+        extensions.configure<org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension> {
+            jvmToolchain(17) // or 17
+        }
+    }
+
+    plugins.withId("java") {
+        extensions.configure<org.gradle.api.plugins.JavaPluginExtension> {
+            toolchain {
+                languageVersion.set(JavaLanguageVersion.of(17)) // or 17
+            }
+        }
+    }
+
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         kotlin {
             target("**/*.kt")
